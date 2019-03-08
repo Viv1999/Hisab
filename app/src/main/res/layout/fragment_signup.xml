@@ -1,14 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorAccent"
+    android:gravity="center"
     tools:context=".SignupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSignup"
+        android:text="Signup"
+        android:textSize="28sp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etNameSignup"
+        android:hint="Enter Name"
+        android:inputType="textPersonName"
+        android:ems="10"/>
+
+    <EditText
+        android:id="@+id/etEmailSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:drawableStart="@drawable/email"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="Enter email"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etPasswordSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:drawableStart="@drawable/password"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="Enter password"
+        android:inputType="textPassword" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etPhoneSignup"
+        android:ems="10"
+        android:hint= "Phone Number"
+        android:inputType="number"/>
+
+
+
+    <Button
+        android:id="@+id/bSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPasswordSignup"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimaryDark"
+        android:text="Signup" />
+
+    <TextView
+        android:id="@+id/tvGoToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="A User? Login"
+        android:textSize="24sp" />
+
+</LinearLayout>

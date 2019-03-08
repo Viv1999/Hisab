@@ -1,5 +1,6 @@
 package com.vivek.hisab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        try {
+            FirebaseUser user = mAuth.getCurrentUser();
+            if(user == null){
+                startActivity(new Intent(MainActivity.this, SpashActivity.class));
+            }
+        }
+        catch (Exception e){
+            startActivity(new Intent(MainActivity.this, SpashActivity.class));
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,6 +46,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Create new Event", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                createNewEvent();
 
 
             }
@@ -42,6 +61,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void createNewEvent() {
+
+
     }
 
     @Override
@@ -71,6 +95,12 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        else if(id == R.id.logout){
+            mAuth.signOut();
+            finish();
+            startActivity(new Intent(MainActivity.this,SpashActivity.class).putExtra("CLASS_NAME",1));
         }
 
         return super.onOptionsItemSelected(item);

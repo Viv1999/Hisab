@@ -24,6 +24,7 @@ public class SpashActivity extends AppCompatActivity implements LoginFragment.On
     FirebaseUser curUser;
     TextView tvLabel;
     DatabaseReference curUserRef;
+    FirebaseUser user1;
 
     private TextView tvAppName;
     private ImageView imgLogo;
@@ -39,37 +40,45 @@ public class SpashActivity extends AppCompatActivity implements LoginFragment.On
 
         Intent intent = getIntent();
         int classId = intent.getIntExtra("CLASS_NAME", -1);
-
-        FirebaseUser user= mAuth.getCurrentUser();
-
-        if(user!=null){
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    tvAppName.setVisibility(View.GONE);
-                    imgLogo.setVisibility(View.GONE);
-
-                }
-            }, SPLASH_TIME_OUT);
-
-            startActivity(new Intent(SpashActivity.this, MainActivity.class));
+        try {
+             user1 = mAuth.getCurrentUser();
         }
-        else{
-            final LoginFragment loginFragment = LoginFragment.newInstance();
-            final FragmentManager fragmentManager = getSupportFragmentManager();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+        catch (Exception e){
+            if (user1 != null) {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        tvAppName.setVisibility(View.GONE);
+                        imgLogo.setVisibility(View.GONE);
+
+                    }
+                }, SPLASH_TIME_OUT);
+
+                startActivity(new Intent(SpashActivity.this, MainActivity.class));
+            } else {
+                final LoginFragment loginFragment = LoginFragment.newInstance();
+                final FragmentManager fragmentManager = getSupportFragmentManager();
+
+                if(classId != -1){
 
                     tvAppName.setVisibility(View.GONE);
                     imgLogo.setVisibility(View.GONE);
-
+                    fragmentManager.beginTransaction().replace(R.id.content_splash, loginFragment).commit();
                 }
-            }, SPLASH_TIME_OUT);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-            fragmentManager.beginTransaction().replace(R.id.content_splash, loginFragment).commit();
+                        tvAppName.setVisibility(View.GONE);
+                        imgLogo.setVisibility(View.GONE);
+
+                    }
+                }, SPLASH_TIME_OUT);
+
+                fragmentManager.beginTransaction().replace(R.id.content_splash, loginFragment).commit();
+            }
         }
 
 

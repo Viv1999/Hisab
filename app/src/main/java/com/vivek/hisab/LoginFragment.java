@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +32,7 @@ public class LoginFragment extends Fragment {
     EditText password;
     Button login;
     FirebaseAuth mAuth;
-    EditText signup;
+    TextView signup;
 
 
     public OnFragmentInteractionListener mListener;
